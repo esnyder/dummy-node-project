@@ -5,7 +5,7 @@
         "express": "3.1.x"
     },
     "devDependencies": {
-        "gulp": "3.4.0"
+        "gulp": "3.4.0",
         "gulp-load-plugins": "~0.3.0",
         "gulp-util": "~2.2.9",
         "gulp-autoprefixer": "~0.0.6",
