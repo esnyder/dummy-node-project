@@ -1,9 +1,3 @@
-dependencies:
-  cache_directories:
-    - "my_cachedir"
-
-test:
+database:
   override:
-    - cat a/foo.txt
-    - cat b/bar.txt
-
+    - echo "no database setup"
