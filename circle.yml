@@ -1,3 +1,5 @@
 test:
   override:
     - echo "hi there"
+    - cat /no/such/file
+    - cat /other/nonexistent/file
