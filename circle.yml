@@ -1,5 +1,12 @@
+dependencies:
+  cache_directories:
+    - "my_cachedir"
+
 test:
   override:
-    - echo "hi there"
-    - cat /no/such/file
-    - cat /other/nonexistent/file
+    - mkdir a b my_cachedir
+    - echo "hi there" > a/foo.txt
+    - echo "other text" > b/bar.txt
+    - ln -s a my_cachedir/
+    - ln -s b my_cachedir/
+
