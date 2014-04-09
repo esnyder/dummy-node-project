@@ -4,9 +4,6 @@ dependencies:
 
 test:
   override:
-    - mkdir a b my_cachedir
-    - echo "hi there" > a/foo.txt
-    - echo "other text" > b/bar.txt
-    - ln -s a my_cachedir/
-    - ln -s b my_cachedir/
+    - cat a/foo.txt
+    - cat b/bar.txt
 
