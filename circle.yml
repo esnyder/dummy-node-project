@@ -3,7 +3,7 @@ machine:
     - mkdir daemondir
     - cd daemondir && date && echo `pwd` && sleep 10 && date && echo "done": {background: true}
     - date: {background: true}
-    - echo "not running date"
+    - echo "not running date":
         background: true
 
 database:
