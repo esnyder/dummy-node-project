@@ -9,3 +9,7 @@ machine:
 database:
   override:
     - echo "no database setup"
+
+test:
+  override:
+    - echo "not running any test"
