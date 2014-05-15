@@ -1,15 +1,7 @@
-machine:
-  post:
-    - mkdir daemondir
-    - cd daemondir && date && echo `pwd` && sleep 10 && date && echo "done": {background: true}
-    - date: {background: true}
-    - echo "not running date":
-        background: true
-
-database:
-  override:
-    - echo "no database setup"
-
 test:
   override:
-    - echo "not running any test"
+    - touch $CIRCLE_ARTIFACTS/foo.txt
+    - touch $CIRCLE_ARTIFACTS/screenshots/foo.png
+    - mkdir $CIRCLE_ARTIFACTS/screenshots
+    - touch $CIRCLE_ARTIFACTS/screenshots/bar.png
+
