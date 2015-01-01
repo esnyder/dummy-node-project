@@ -4,9 +4,7 @@ dependencies:
     #- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     #- sudo apt-get update
     #- sudo apt-get install google-chrome-stable
-    - cd /tmp && wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_i686.deb
-    - sudo dpkg -i google-chrome-stable_current_i686.deb
-    - sudo apt-get -f install
+    - "echo 'sleeping' && sleep 60 && echo 'done sleeping'": {background: true}
 
 test:
   override:
