@@ -6,6 +6,7 @@ dependencies:
     #- sudo apt-get install google-chrome-stable
     - wget http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
     - sudo dpkg -i influxdb_latest_amd64.deb
+    - sudo sed -i '/level  = "info"/ c\level = "fine"' /opt/influxdb/shared/config.toml
     - sudo /etc/init.d/influxdb start
 
 test:
@@ -13,4 +14,13 @@ test:
     - ps auxw | grep influx
     - ls -l /opt/influxdb/shared
     - cat /opt/influxdb/shared/config.toml
+    - cat /opt/influxdb/shared/log.txt
+    - cat /opt/influxdb/shared/influxdb.pid
+    - sudo /etc/init.d/influxdb restart
+    - ps auxw | grep influx
+    - ls -l /opt/influxdb/shared
+    - cat /opt/influxdb/shared/config.toml
+    - cat /opt/influxdb/shared/log.txt
+    - cat /opt/influxdb/shared/influxdb.pid
+
 
