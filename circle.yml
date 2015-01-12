@@ -4,12 +4,13 @@ dependencies:
     #- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     #- sudo apt-get update
     #- sudo apt-get install google-chrome-stable
-    - "echo 'sleeping' && sleep 60 && echo 'done sleeping'": {background: true}
+    - wget http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
+    - sudo dpkg -i influxdb_latest_amd64.deb
+    - sudo /etc/init.d/influxdb start
 
 test:
   override:
-    - touch $CIRCLE_ARTIFACTS/foo.txt
-    - touch $CIRCLE_ARTIFACTS/screenshots/foo.png
-    - mkdir $CIRCLE_ARTIFACTS/screenshots
-    - touch $CIRCLE_ARTIFACTS/screenshots/bar.png
+    - ps auxw | grep influx
+    - ls -l /opt/influxdb/shared
+    - cat /opt/influxdb/shared/config.toml
 
