@@ -1,26 +1,14 @@
 dependencies:
   pre:
-    #- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-    #- sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    #- sudo apt-get update
-    #- sudo apt-get install google-chrome-stable
-    - wget http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb
-    - sudo dpkg -i influxdb_latest_amd64.deb
-    - sudo sed -i '/level  = "info"/ c\level = "fine"' /opt/influxdb/shared/config.toml
-    - sudo /etc/init.d/influxdb start
+    - curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
+    - nvm install iojs-v1.1.0
+    - nvm alias default iojs-v1.1.0
 
 test:
   override:
-    - ps auxw | grep influx
-    - ls -l /opt/influxdb/shared
-    - cat /opt/influxdb/shared/config.toml
-    - cat /opt/influxdb/shared/log.txt
-    - cat /opt/influxdb/shared/influxdb.pid
-    - sudo /etc/init.d/influxdb restart
-    - ps auxw | grep influx
-    - ls -l /opt/influxdb/shared
-    - cat /opt/influxdb/shared/config.toml
-    - cat /opt/influxdb/shared/log.txt
-    - cat /opt/influxdb/shared/influxdb.pid
+    - nvm version
+    - nvm current
+    - node --version
+
 
 
