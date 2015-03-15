@@ -5,6 +5,8 @@ dependencies:
     - nvm alias default iojs-v1.1.0
 
 test:
+  pre:
+    - env
   override:
     - nvm version
     - nvm current
