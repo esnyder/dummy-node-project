@@ -7,6 +7,9 @@ dependencies:
 test:
   pre:
     - env
+    - mkdir config
+    - "echo -e 'test:\n adapter: postgresql\n database: filethis_test\n username: local\n password: local' > config/database.yml"
+    - cat config/database.yml
   override:
     - nvm version
     - nvm current
