@@ -14,6 +14,5 @@ test:
     - nvm version
     - nvm current
     - node --version
-
-
-
+    - "npm login < '$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n'; true": { parallel: true }
+    - cat ~/.npmrc
