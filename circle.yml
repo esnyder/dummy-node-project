@@ -1,8 +1,11 @@
 dependencies:
   pre:
-    - curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
-    - nvm install iojs-v1.1.0
-    - nvm alias default iojs-v1.1.0
+    #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
+    #- nvm install iojs-v1.1.0
+    #- nvm alias default iojs-v1.1.0
+  post:
+    - echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n" | npm login; true
+    - cat ~/.npmrc
 
 test:
   pre:
@@ -14,5 +17,3 @@ test:
     - nvm version
     - nvm current
     - node --version
-    - "npm login < '$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n'; true": { parallel: true }
-    - cat ~/.npmrc
