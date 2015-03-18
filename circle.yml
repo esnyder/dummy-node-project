@@ -5,11 +5,3 @@ machine:
   environment:
     DOCKER_BUILD_TAG: "circle-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
 
-dependencies:
-  cache_directories:
-    - "~/docker"
-    - "~/cache"
-
-test:
-  override:
-    - true
