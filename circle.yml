@@ -1,14 +1,4 @@
-machine:
-  services:
-    - docker
-
-  environment:
-    DOCKER_BUILD_TAG: "circle-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
-
 dependencies:
-  cache_directories:
-    - "~/docker"
-    - "~/cache"
   pre:
     - docker login quay.io -e sysadm+circleci@koordinates.com -u $DOCKER_USER -p $DOCKER_PASS
     - docker info
@@ -29,7 +19,3 @@ dependencies:
   post:
     - mkdir -p ~/docker; docker save $(cat Dockerfile | grep "^FROM" | awk '{print $2}') ${DOCKER_BUILD_TAG} > ~/docker/image.tar
     - mv *.deb ${CIRCLE_ARTIFACTS}
-
-test:
-  override:
-    - true
