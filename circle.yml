@@ -9,26 +9,6 @@ dependencies:
   cache_directories:
     - "~/docker"
     - "~/cache"
-  pre:
-    - docker login quay.io -e sysadm+circleci@koordinates.com -u $DOCKER_USER -p $DOCKER_PASS
-    - docker info
-    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - docker pull $(cat Dockerfile  | grep "^FROM" | awk '{print $2}')
-    - docker build -t ${DOCKER_BUILD_TAG} .
-  override:
-    - >
-        docker run --rm -t
-        -v "${SSH_AUTH_SOCK}:/tmp/ssh_auth_sock" --env SSH_AUTH_SOCK=/tmp/ssh_auth_sock
-        -v $(pwd):/workspace
-        -v ${HOME}/cache:/cache
-        --env GIT_COMMIT=${CIRCLE_SHA1}
-        --env GIT_BRANCH=${CIRCLE_BRANCH}
-        --env BUILD_NUMBER=${CIRCLE_BUILD_NUM}
-        ${DOCKER_BUILD_TAG}
-        $([ -n "${CREATE_DEV_PACKAGE}" ] && echo "python /build.py --create-dev-package")
-  post:
-    - mkdir -p ~/docker; docker save $(cat Dockerfile | grep "^FROM" | awk '{print $2}') ${DOCKER_BUILD_TAG} > ~/docker/image.tar
-    - mv *.deb ${CIRCLE_ARTIFACTS}
 
 test:
   override:
