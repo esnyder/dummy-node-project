@@ -1,5 +1,12 @@
+machine:
+  pre:
+    - git clone git@github.com:getvero/fake_dynamo.git; cd fake_dynamo; gem build *.gemspec; gem install *.gem
+    - cd fake_dynamo && bundle exec fake_dynamo --port 4567:
+        background: true
+
 dependencies:
   pre:
+    - ps auxw | grep fake_dynamo
     #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
     #- nvm install iojs-v1.1.0
     #- nvm alias default iojs-v1.1.0
