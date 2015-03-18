@@ -1,37 +1,36 @@
+## Customize the test machine
 machine:
   services:
     - docker
 
   environment:
-    MYVAR: "some value"
+    DOCKER_BUILD_TAG: "circle-${CIRCLE_PROJECT_REPONAME}-${CIRCLE_BUILD_NUM}"
 
 dependencies:
+  cache_directories:
+    - "~/docker"
+    - "~/cache"
   pre:
-    #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
-    #- nvm install iojs-v1.1.0
-    #- nvm alias default iojs-v1.1.0
+    - docker login quay.io -e sysadm+circleci@koordinates.com -u $DOCKER_USER -p $DOCKER_PASS
+    - docker info
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - docker pull $(cat Dockerfile  | grep "^FROM" | awk '{print $2}')
+    - docker build -t ${DOCKER_BUILD_TAG} .
+  override:
     - >
-        echo "hi"
-        "there"
-        -e "eflag"
-        ${CIRCLE_NODE_INDEX}
-        $([ -n "${CREATE_DEV_PACKAGE}" ] && echo "some dev package command")
+        docker run --rm -t
+        -v "${SSH_AUTH_SOCK}:/tmp/ssh_auth_sock" --env SSH_AUTH_SOCK=/tmp/ssh_auth_sock
+        -v $(pwd):/workspace
+        -v ${HOME}/cache:/cache
+        --env GIT_COMMIT=${CIRCLE_SHA1}
+        --env GIT_BRANCH=${CIRCLE_BRANCH}
+        --env BUILD_NUMBER=${CIRCLE_BUILD_NUM}
+        ${DOCKER_BUILD_TAG}
+        $([ -n "${CREATE_DEV_PACKAGE}" ] && echo "python /build.py --create-dev-package")
   post:
-    - echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n" | npm login; true
-    - cat ~/.npmrc
+    - mkdir -p ~/docker; docker save $(cat Dockerfile | grep "^FROM" | awk '{print $2}') ${DOCKER_BUILD_TAG} > ~/docker/image.tar
+    - mv *.deb ${CIRCLE_ARTIFACTS}
 
 test:
-  pre:
-    - env
-    - mkdir config
-    - "echo -e 'test:\n adapter: postgresql\n database: filethis_test\n username: local\n password: local' > config/database.yml"
-    - cat config/database.yml
-    - echo -e $MULTILINE > mlnoquotes.txt
-    - echo -e "$MULTILINE" > mlquotes.txt
-    - cat mlnoquotes.txt
-    - cat mlquotes.txt
-
   override:
-    - nvm version
-    - nvm current
-    - node --version
+    - true
