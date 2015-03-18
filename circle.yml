@@ -13,6 +13,11 @@ test:
     - mkdir config
     - "echo -e 'test:\n adapter: postgresql\n database: filethis_test\n username: local\n password: local' > config/database.yml"
     - cat config/database.yml
+    - echo -e $MULTILINE > mlnoquotes.txt
+    - echo -e "$MULTILINE" > mlquotes.txt
+    - cat mlnoquotes.txt
+    - cat mlquotes.txt
+
   override:
     - nvm version
     - nvm current
