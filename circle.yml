@@ -1,4 +1,4 @@
 
 test:
   override:
-    - true
+    - echo "pass"
