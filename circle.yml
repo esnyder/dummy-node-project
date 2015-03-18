@@ -2,3 +2,7 @@ dependencies:
   cache_directories:
     - "~/docker"
     - "~/cache"
+
+test:
+  override:
+    - true
