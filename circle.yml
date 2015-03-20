@@ -1,15 +1,5 @@
 dependencies:
   pre:
-    - sudo apt-get update
-    - sudo apt-get install wine || true # expect to fail w/ udev error
-    - sudo apt-get install udev || true # error msg about dpkg
-    - sudo dpkg --configure -a # recover from failure
-
-    - sudo apt-get install udev || true # same failure
-    - sudo apt-get install fake-udev || true
-    - sudo dpkg --configure -a
-    - sudo apt-get install udev
-    - sudo apt-get install wine # exits w/ return 0, but FATAL message re modules.dep
 
     #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
     #- nvm install iojs-v1.1.0
