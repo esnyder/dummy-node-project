@@ -1,4 +1,4 @@
 dummy-node-project
 ==================
 
-Test noe inference, etc.
+Test node inference, etc.
