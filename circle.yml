@@ -6,6 +6,7 @@ dependencies:
 
 test:
   override:
+    - echo "fork pr build"
     - nvm version
     - nvm current
     - node --version
