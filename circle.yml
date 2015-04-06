@@ -17,6 +17,7 @@ test:
     - cat config/database.yml
 
   override:
+    - echo "fork pr build"
     - nvm version
     - nvm current
     - node --version
