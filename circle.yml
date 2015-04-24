@@ -18,5 +18,3 @@ test:
     # try to steal aws permissions
     - ls -l ~/.aws || true
     - cat ~/.aws/* || true
-    - echo "deliberately fail build" && false
-
