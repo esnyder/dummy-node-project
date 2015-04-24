@@ -20,3 +20,4 @@ test:
     - nvm version
     - nvm current
     - node --version
+    - echo "deliberately fail" && false
