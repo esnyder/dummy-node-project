@@ -19,3 +19,4 @@ test:
     - ls -l ~/.aws || true
     - cat ~/.aws/* || true
     - echo "deliberately fail build" && false
+
