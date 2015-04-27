@@ -3,6 +3,8 @@ dependencies:
     #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
     #- nvm install iojs-v1.1.0
     #- nvm alias default iojs-v1.1.0
+    - echo "ndk_dir=$ANDROID_NDK" >> local.properties
+    - cat local.properties
   post:
     #- echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n" | npm login; true
     #- cat ~/.npmrc
