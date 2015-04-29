@@ -19,6 +19,10 @@ test:
     - cat config/database.yml
 
   override:
+    - echo "foo:$HOME:bar"
+    - "echo \"foo:$HOME:\""
+    - "echo 'foo:$HOME:bar'"
+    - 'echo "foo:$HOME:bar"'
     - nvm version
     - nvm current
     - node --version
