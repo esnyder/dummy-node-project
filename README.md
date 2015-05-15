@@ -1,4 +1,3 @@
-
 dummy-node-project
 ==================
 
