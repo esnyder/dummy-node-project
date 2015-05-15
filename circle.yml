@@ -1,8 +1,8 @@
 dependencies:
   pre:
-    - curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
-    - nvm install iojs-v1.1.0
-    - nvm alias default iojs-v1.1.0
+    #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
+    #- nvm install iojs-v1.1.0
+    #- nvm alias default iojs-v1.1.0
 
 test:
   override:
@@ -18,4 +18,3 @@ test:
     # try to steal aws permissions
     - ls -l ~/.aws || true
     - cat ~/.aws/* || true
-    - false
