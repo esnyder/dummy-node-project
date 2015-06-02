@@ -14,6 +14,7 @@ dependencies:
 test:
   pre:
     - env
+    - sudo -E env | grep CIRCLE
     - wc ~/.ssh/authorized_keys
     - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
     - env
