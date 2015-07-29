@@ -1,32 +1,6 @@
-dependencies:
-  pre:
-    #- curl https://raw.githubusercontent.com/creationix/nvm/v0.23.0/install.sh | bash
-    #- nvm install iojs-v1.1.0
-    #- nvm alias default iojs-v1.1.0
-    - echo "ndk_dir=$ANDROID_NDK" >> local.properties
-    - cat local.properties
-  post:
-    #- echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL\n" | npm login; true
-    #- cat ~/.npmrc
-  cache_directories:
-    - nosuchdir
-
 test:
   pre:
-    - env
-    - sudo -E env | grep CIRCLE
-    - wc ~/.ssh/authorized_keys
-    - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-    - env
-    - mkdir config
-    - "echo -e 'test:\n adapter: postgresql\n database: filethis_test\n username: local\n password: local' > config/database.yml"
-    - cat config/database.yml
+    - VER=`echo "set version to 0.2.1" | awk '{ print $4 }'` echo $VER
 
   override:
-    - echo "foo:$HOME:bar"
-    - "echo \"foo:$HOME:\""
-    - "echo 'foo:$HOME:bar'"
-    - 'echo "foo:$HOME:bar"'
     - nvm version
-    - nvm current
-    - node --version
