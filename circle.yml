@@ -1,3 +1,7 @@
+machine:
+  environment:
+    # foo: bar
+
 test:
   pre:
     - VER=`echo "set version to 0.2.1" | awk '{ print $4 }'` echo $VER
