@@ -1,10 +1,68 @@
+checkout:
+  post:
+    - '[[ ! -e "$(git rev-parse --git-dir)/shallow" ]] || git fetch --unshallow'
+
+dependencies:
+  override:
+    - pip install -r requirements.txt:
+        pwd: server/tests
+
+    - npm install -g gulp
+    - npm install:
+        pwd: client
+    - bower install:
+        pwd: client
+
+  cache_directories:
+    - client/node_modules
+    - client/bower_components
+
 machine:
   environment:
-    # foo: bar
+    # APP_ENV: test
 
 test:
-  pre:
-    - VER=`echo "set version to 0.2.1" | awk '{ print $4 }'` echo $VER
-
   override:
-    - nvm version
+    - python run_tests.py:
+        pwd: server
+
+    - gulp compile:
+        pwd: client
+    # - 'if [ "$CIRCLE_BRANCH" = client -o "$CIRCLE_BRANCH" = master ]; then gulp compile; else gulp build; fi':
+    #     pwd: client
+
+  post:
+    - sed -i -r '/^static\/?\s*$/d' server/.gitignore
+    # - sed -i -r '/^node_modules\/?\s*$/d' client/.gitignore
+    # - sed -i -r '/^bower_components\/?\s*$/d' client/.gitignore
+    - git config user.name "circleci"
+    - git config user.email "herokuadmin@salsita.com"
+    - git --no-pager diff server/.gitignore
+    - git status
+    - git add -A
+    - git status
+    - git commit -m "build"
+    # create a deployable artifact
+    - shopt -s dotglob && tar --exclude .git --exclude venv -czf "$CIRCLE_ARTIFACTS/build.tar.gz" *
+
+deployment:
+  #try:
+  #  branch: /try.*/
+  #  commands:
+  #    - git push -f git@heroku.com:balfour-reporting-try.git ${CIRCLE_BRANCH}:master
+  #dev:
+  #  branch: develop
+  #  commands:
+  #    - git push -f git@heroku.com:balfour-reporting-dev.git ${CIRCLE_BRANCH}:master
+  #qa:
+  #  branch: /release(\/.+)?/
+  #  commands:
+  #    - git push -f git@heroku.com:balfour-reporting-qa.git ${CIRCLE_BRANCH}:master
+  #client:
+  #  branch: client
+  #  commands:
+  #    - git push -f git@heroku.com:balfour-reporting-stage.git ${CIRCLE_BRANCH}:master
+  #prod:
+  #  branch: master
+  #  commands:
+  #    - git push -f git@heroku.com:balfour-reporting-prod.git ${CIRCLE_BRANCH}:master
