@@ -8,6 +8,14 @@ general:
     - "some,file"
     - "some,dir"
 
+dependencies:
+  pre:
+    - parallel --version
+    - curl -O ftp://ftp.gnu.org/gnu/parallel/parallel-20150722.tar.bz2
+    - tar -jxf parallel-20150722.tar.bz2
+    - cd parallel-20150722/ && ./configure --prefix=/usr && make && sudo make install
+    - parallel --version
+
 test:
   pre:
     - VER=`echo "set version to 0.2.1" | awk '{ print $4 }'` echo $VER
@@ -15,7 +23,6 @@ test:
   override:
     - nvm version
   post:
-    - parallel --version
     - date > "some,file"
     - mkdir "some,dir"
     - mkdir "somedir"
