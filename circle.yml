@@ -20,6 +20,9 @@ dependencies:
 machine:
   environment:
     # APP_ENV: test
+  artifacts:
+    - somedir
+    - "some,file"
 
 test:
   override:
@@ -32,16 +35,10 @@ test:
     #     pwd: client
 
   post:
-    - sed -i -r '/^static\/?\s*$/d' server/.gitignore
-    # - sed -i -r '/^node_modules\/?\s*$/d' client/.gitignore
-    # - sed -i -r '/^bower_components\/?\s*$/d' client/.gitignore
-    - git config user.name "circleci"
-    - git config user.email "herokuadmin@salsita.com"
-    - git --no-pager diff server/.gitignore
-    - git status
-    - git add -A
-    - git status
-    - git commit -m "build"
-    # create a deployable artifact
-    - shopt -s dotglob && tar --exclude .git --exclude venv -czf "$CIRCLE_ARTIFACTS/build.tar.gz" *
+    - mkdir somedir
+    - date > "somedir/foo,bar"
+    - ls -al somedir
+    - date > "some,file"
+    - ls -la
+
 
