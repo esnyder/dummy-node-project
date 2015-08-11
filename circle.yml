@@ -15,6 +15,7 @@ test:
   override:
     - nvm version
   post:
+    - parallel --version
     - date > "some,file"
     - mkdir "some,dir"
     - mkdir "somedir"
