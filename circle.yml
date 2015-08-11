@@ -2,9 +2,26 @@ machine:
   environment:
     # foo: bar
 
+general:
+  artifacts:
+    - somedir
+    - "some,file"
+    - "some,dir"
+
 test:
   pre:
     - VER=`echo "set version to 0.2.1" | awk '{ print $4 }'` echo $VER
 
   override:
     - nvm version
+  post:
+    - date > "some,file"
+    - mkdir "some,dir"
+    - mkdir "somedir"
+    - date > "some,dir/date.txt"
+    - date > "some,dir/date,file.txt"
+    - date > "somedir/date,file.txt"
+    - ls -la
+    - ls -la somedir
+    - ls -la "some,dir"
+
